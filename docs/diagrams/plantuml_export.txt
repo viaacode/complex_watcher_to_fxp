@@ -1,0 +1,39 @@
+@startuml
+
+title FTP ingest - Complex to FXP Diagram 
+
+
+start
+
+:File closed; 
+note right: inotify event 
+
+: if ext in ('.complex', '.COMPLEX', '.zip', '.zip'); 
+note left: Filter on .zip or .complex
+
+if (Get MAM name?) then (yes)
+   note left: config.yml read_mets: True 
+  :Read mets.xml find CP_ID;
+  :Query org api get mam name from or-id;
+  :Set destination path /mam_name;
+  if (error)then (yes)
+  :AMQP routing_key complex_err_fxp;
+  else (no)
+  :AMQP routing_key complex_to_fxp;
+  endif
+else (no)
+   note right: config.yml read_mets: False
+
+  :keep default target dir in fxp msg;
+    if (error)then (yes)
+  :AMQP routing_key complex_err_fxp;
+  else (no)
+  :AMQP routing_key complex_to_fxp;
+  endif
+endif
+:Publish msg;
+:FXP amqp Exchange;
+
+stop
+
+@enduml

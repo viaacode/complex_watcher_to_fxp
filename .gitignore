@@ -1,0 +1,9 @@
+*.yml
+complex_watcher/config.yml
+.spyproject/
+__pycache__
+build/
+*egg-info/
+dist/
+complex_watcher/*.zip
+*.zip
