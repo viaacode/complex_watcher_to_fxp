@@ -23,15 +23,17 @@ from pika import BlockingConnection, ConnectionParameters, BasicProperties,\
     PlainCredentials
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-config_ = ConfigParser()
-LOGGER = logging.get_logger('watcher', config_)
+config = ConfigParser()
+pub_routing_key = config.app_cfg['amqpPublisher']['routing_key']
+
+LOGGER = logging.get_logger('watcher', config)
 
 
 class PubMsg():
     """Publish a message to a queue with exchange and routing key"""
 
     def __init__(self, queue, rabhost,
-                 user, passwd, msg, routing_key='complex_fxp',
+                 user, passwd, msg, routing_key=pub_routing_key,
                  vhost='/'):
         self.queue = queue
         self.host = rabhost

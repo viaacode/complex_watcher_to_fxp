@@ -48,6 +48,7 @@ def or_id_from_mets(zip_file):
             complex_obj.extract(mets, path='.' + mets)
             root = etree.parse(str('.' + mets + '/' + mets))
             cp_id = root.xpath("//CP_id/text()")[0]
+            # logger.info('or-id: %s', cp_id)
     except KeyError as exc:
         logger.error(exc)
         logger.info('_mets.xml not found: %s', mets)

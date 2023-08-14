@@ -40,6 +40,7 @@ pub_user = config.app_cfg['amqpPublisher']['user']
 pub_pass = config.app_cfg['amqpPublisher']['pass']
 pub_host = config.app_cfg['amqpPublisher']['host']
 pub_queue = config.app_cfg['amqpPublisher']['queue']
+pub_routing_key = config.app_cfg['amqpPublisher']['routing_key']
 pub_err_queue = config.app_cfg['amqpPublisher']['error_queue']
 fxpTemplate = Template("""
                          {
@@ -117,7 +118,7 @@ def __main__():
                                            rabhost=pub_host,
                                            user=pub_user,
                                            passwd=pub_pass,
-                                           routing_key='complex_fxp',
+                                           routing_key=pub_routing_key,
                                            msg=msg)()
                             except TypeError as exc:
                                 error_msg = {"Error": "{}".format(str(exc)),
@@ -149,7 +150,7 @@ def __main__():
                                    rabhost=pub_host,
                                    user=pub_user,
                                    passwd=pub_pass,
-                                   routing_key='complex_fxp',
+                                   routing_key=pub_routing_key,
                                    msg=msg)()
 
     finally:

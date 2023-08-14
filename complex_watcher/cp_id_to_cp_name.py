@@ -58,3 +58,6 @@ def get_mam_name(or_id):
         logger.error(str(exc))
         # raise requests.exceptions.HTTPError from exc
         return None
+
+
+# print(get_mam_name('OR-0z70w1b'))
